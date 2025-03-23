@@ -13,12 +13,12 @@
     </div>
     <div class="offcanvas-body">
       <ul class="list-group">
-        <li v-for="(item, index) in menuItems" :key="index" class="list-group-item"
+        <router-link v-for="(item, index) in menuItems" :key="index" :to="item.path" tag="li" class="list-group-item"
           :class="{ active: $route.path === item.path }">
-          <router-link :to="item.path">
-            <span>{{ item.label }}</span>
-          </router-link>
-        </li>
+          <span class="d-flex align-items-center">
+            <span class="material-symbols-outlined me-2">{{ item.icon }}</span> {{ item.label }}
+          </span>
+        </router-link>
       </ul>
     </div>
   </div>
@@ -28,16 +28,25 @@
 import { ref } from 'vue';
 
 const menuItems = ref([
-  { label: 'Home', path: '/' },
-  { label: 'Users', path: '/user' },
-  { label: 'Orders', path: '/orders' },
-  { label: 'Products', path: '/products' },
-  { label: 'Reports', path: '/reports' },
-  { label: 'Settings', path: '/settings' }
+  { icon: 'home', label: 'Home', path: '/' },
+  { icon: 'person', label: 'Users', path: '/user' },
+  { icon: 'home', label: 'Orders', path: '/orders' },
+  { icon: 'home', label: 'Products', path: '/products' },
+  { icon: 'home', label: 'Reports', path: '/reports' },
+  { icon: 'home', label: 'Settings', path: '/settings' }
 ]);
 </script>
 
 <style scoped>
+.offcanvas {
+  width: 250px !important;
+  border-radius: 10px !important;
+}
+
+.offcanvas-body {
+  padding: 8px !important;
+}
+
 .list-group {
   border: none;
 }
@@ -46,7 +55,8 @@ const menuItems = ref([
   border: none;
   text-decoration: none !important;
   border-radius: 10px !important;
-  margin-bottom: 10px;
+  margin-bottom: 5px;
+  padding: 12px 20px !important;
   background-color: #fff !important;
   color: #000;
   transition: all .2s;
