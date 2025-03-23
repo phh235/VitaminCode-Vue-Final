@@ -433,3 +433,18 @@ select.is-invalid {
     background-color: var(--primary-color) !important;
   }
 }
+
+/* Custom close of modal */
+span.custom-close {
+  position: absolute;
+  color: var(--nav-link-color) !important;
+  right: 1.5rem;
+  font-size: 25px;
+  border: 2px solid var(--background-color);
+  cursor: pointer;
+  transition: all 0.2s ease !important;
+  border-radius: 50%;
+  &:hover {
+    border: 2px solid var(--primary-color);
+  }
+}

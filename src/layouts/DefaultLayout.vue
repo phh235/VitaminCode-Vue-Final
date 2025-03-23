@@ -1,5 +1,5 @@
 <template>
-  <div class="d-flex">
+  <div class="d-flex p-2">
     <Sidebar />
     <router-view></router-view>
   </div>
