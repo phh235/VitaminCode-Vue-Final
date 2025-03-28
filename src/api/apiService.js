@@ -20,5 +20,23 @@ export const apiService = {
       console.log(error);
       throw error;
     }
-  }
+  },
+
+  post: async (url, data) => {
+    try {
+      return (await api.post(url, data)).data
+    } catch (error) {
+      console.log(error);
+      throw error;
+    }
+  },
+
+  delete: async (url, id) => {
+    try {
+      return (await api.delete(url, { data: id })).data
+    } catch (error) {
+      console.log(error);
+      throw error;
+    }
+  },
 }
