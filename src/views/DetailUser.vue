@@ -1,4 +1,5 @@
 <template>
+    <router-link class="btn btn-secondary" to="/user">Back to list</router-link>
     <div>
         <h3>User id: {{ route.params.id }}</h3>
         <div v-if="user">
@@ -13,21 +14,12 @@
 import { ref, onMounted } from "vue";
 import { apiService } from "../api/apiService";
 import { useRoute } from "vue-router";
+import { getUserById } from "../api/user";
 
 const route = useRoute();
 const user = ref(null);
 
-onMounted(() => {
-    getUserById();
+onMounted(async () => {
+    user.value = await getUserById(route.params.id);
 });
-
-const getUserById = async () => {
-    try {
-        const data = await apiService.get(`users/${route.params.id}`);
-        user.value = data;
-        console.log(data);
-    } catch (err) {
-        console.error(err);
-    }
-};
 </script>

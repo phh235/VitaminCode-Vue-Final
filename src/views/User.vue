@@ -9,10 +9,10 @@
                 v-model="searchUser"
             />
         </div>
-        <button class="btn btn-primary d-flex align-items-center">
+        <router-link class="btn btn-primary d-flex align-items-center" to="user/new">
             <span class="material-symbols-outlined me-2">add</span>
             Add new
-        </button>
+        </router-link>
     </div>
     <div class="table-responsive">
         <table class="table">
@@ -27,13 +27,14 @@
                 <tr class="text-center">
                     <td colspan="10" v-if="filteredUsers.length === 0">User not found.</td>
                 </tr>
-                <tr v-for="(user, index) in filteredUsers" :key="users.id">
+                <tr v-for="(user, index) in filteredUsers" :key="user.id">
                     <td>{{ user.name }}</td>
                     <td>{{ user.email }}</td>
                     <td>
                         <router-link :to="`/detail-user/${user.id}`" class="btn btn-primary"
                             >Detail</router-link
                         >
+                        <button class="btn btn-danger" @click="deleteUser(user.id)">Delete</button>
                     </td>
                 </tr>
             </tbody>
@@ -43,20 +44,19 @@
 
 <script setup>
 import { ref, onMounted, computed } from "vue";
-import { apiService } from "../api/apiService";
+import { getAllUsers } from "../api/user";
 
 const users = ref([]);
 const searchUser = ref("");
 
-onMounted(() => {
-    getAllUsers();
+onMounted(async () => {
+    users.value = await getAllUsers();
 });
 
-const getAllUsers = async () => {
+const deleteUser = async (id) => {
     try {
-        const data = await apiService.get("users");
-        users.value = data;
-        console.log(users.value);
+        const response = await apiService.delete(`users/${id}`);
+        console.log(response);
     } catch (err) {
         console.error(err);
     }
